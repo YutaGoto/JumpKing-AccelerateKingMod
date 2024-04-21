@@ -8,7 +8,7 @@ namespace JumpKing_AccelerateKingMod
 
         protected override string GetName()
         {
-            return "Acceretate";
+            return "Accelerate";
         }
 
         protected override void OnToggle()
