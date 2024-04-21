@@ -4,15 +4,10 @@ using JumpKing.Level.Sampler;
 using JumpKing.Workshop;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JumpKing_AccelerateKingMod
 {
-    class BlockFactory: IBlockFactory
+    class BlockFactory : IBlockFactory
     {
         private static readonly Color CODE_DUMMY_ACCELERATE = new Color(255, 255, 254);
 

@@ -1,10 +1,9 @@
-﻿using HarmonyLib;
+﻿using EntityComponent;
+using HarmonyLib;
+using JumpKing.Level;
 using JumpKing.Mods;
 using JumpKing.Player;
 using System.Reflection;
-using EntityComponent;
-using JumpKing.Level;
-using JumpKing;
 
 namespace JumpKing_AccelerateKingMod
 {
