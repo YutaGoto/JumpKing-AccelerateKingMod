@@ -2,23 +2,36 @@
 using HarmonyLib;
 using JumpKing.Level;
 using JumpKing.Mods;
+using JumpKing.PauseMenu.BT.Actions;
+using JumpKing.PauseMenu;
 using JumpKing.Player;
 using System.Reflection;
+using System.IO;
 
 namespace JumpKing_AccelerateKingMod
 {
     [JumpKingMod("YutaGoto.JumpKing_AccelerateKingMod")]
     public static class ModEntry
     {
+
+        public static bool isEnabled;
+        public static readonly string harmonyId = "YutaGoto.JumpKing_AccelerateKingMod";
+        public static Harmony harmony = new Harmony(harmonyId);
+
+        [MainMenuItemSetting]
+        public static ITextToggle AddToggleEnabled(object factory, GuiFormat format)
+        {
+            return new NodeToggleEnabled(isEnabled);
+        }
+
         /// <summary>
         /// Called by Jump King before the level loads
         /// </summary>
         [BeforeLevelLoad]
         public static void BeforeLevelLoad()
         {
+            isEnabled = false;
             LevelManager.RegisterBlockFactory(new BlockFactory());
-            Harmony harmony = new Harmony("YutaGoto.JumpKing_Expansion_Blocks");
-            PatchWithHarmony(harmony);
         }
 
         /// <summary>
@@ -33,7 +46,11 @@ namespace JumpKing_AccelerateKingMod
         [OnLevelStart]
         public static void OnLevelStart()
         {
+            if (!isEnabled) return;
+
             PlayerEntity player = EntityManager.instance.Find<PlayerEntity>();
+            PatchWithHarmony();
+
             if (player != null)
             {
                 player.m_body.RegisterBlockBehaviour(typeof(DummyAccelerateBlock), new DummyAccelerateBlockBehaviour());
@@ -44,12 +61,15 @@ namespace JumpKing_AccelerateKingMod
         /// Called by Jump King when the Level Ends
         /// </summary>
         [OnLevelEnd]
-        public static void OnLevelEnd() { }
+        public static void OnLevelEnd() 
+        {
+            harmony.UnpatchAll(harmonyId);
+        }
 
         /// <summary>
         /// Setups the Harmony patching
         /// </summary>
-        private static void PatchWithHarmony(Harmony harmony)
+        private static void PatchWithHarmony()
         {
             MethodInfo isGetMultipliers = typeof(BodyComp).GetMethod("GetMultipliers");
             MethodInfo postfixGetMultipliers = typeof(ModEntry).GetMethod("GetMultipliersPostfix");
