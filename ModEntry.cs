@@ -80,10 +80,7 @@ namespace JumpKing_AccelerateKingMod
         {
             PlayerEntity player = EntityManager.instance.Find<PlayerEntity>();
 
-            if (player != null)
-            {
-                __result *= 2.0f;
-            }
+            if (player != null) __result *= 2.0f;
         }
     }
 }
