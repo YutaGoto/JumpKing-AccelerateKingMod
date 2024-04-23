@@ -55,6 +55,7 @@
     <Compile Include="BlockFactory.cs" />
     <Compile Include="DummyAccelerateBlock.cs" />
     <Compile Include="DummyAccelerateBlockBehaviour.cs" />
+    <Compile Include="GameLoopDraw.cs" />
     <Compile Include="ModEntry.cs" />
     <Compile Include="NodeToggleEnabled.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -71,6 +71,8 @@ namespace JumpKing_AccelerateKingMod
         /// </summary>
         private static void PatchWithHarmony()
         {
+            new GameLoopDraw(harmony);
+
             MethodInfo isGetMultipliers = typeof(BodyComp).GetMethod("GetMultipliers");
             MethodInfo postfixGetMultipliers = typeof(ModEntry).GetMethod("GetMultipliersPostfix");
             harmony.Patch(isGetMultipliers, postfix: new HarmonyMethod(postfixGetMultipliers));
